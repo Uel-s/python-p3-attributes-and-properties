@@ -1,32 +1,3 @@
-class Person:
-    def _init_(self):
-        self._name = None
-        self._job = None
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, value):
-        if isinstance(value, str) and len(value) <= 25:
-            # Convert the name to title case before saving
-            self._name = value.title()
-        else:
-            print("Name must be a string under 25 characters.")
-
-    @property
-    def job(self):
-        return self._job
-
-    @job.setter
-    def job(self, value):
-        if value in APPROVED_JOBS:
-            self._job = value
-        else:
-            print("Job must be in the list of approved jobs.")
-
-# List of approved jobs
 APPROVED_JOBS = [
     "Admin",
     "Customer Service",
@@ -42,8 +13,29 @@ APPROVED_JOBS = [
     "Purchasing"
 ]
 
-# Example usage:
-# Create an instance of the Person class and set name and job
-person = Person()
-person.name = "john smith"
-person.job = "ITC"
+class Person:
+    def __init__(self, name='J. Doe', job='Sales'):
+        self.name = name
+        self.job = job
+
+    def get_name(self):
+        return self._name
+    
+    def set_name(self, name):
+        if isinstance(name, str) and 1 <= len(name) <= 25:
+            self._name = name.title()
+        else:
+            print("Name must be string between 1 and 25 characters.")
+
+    name = property(get_name, set_name)
+
+    def get_job(self):
+        return self._job
+    
+    def set_job(self, job):
+        if job in APPROVED_JOBS:
+            self._job = job
+        else:
+            print("Job must be in list of approved jobs.")
+
+    job = property(get_job, set_job)
